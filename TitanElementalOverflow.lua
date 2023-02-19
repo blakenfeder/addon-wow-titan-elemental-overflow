@@ -43,7 +43,7 @@ function TitanElementalOverflow.Util_GetFormattedNumber(number)
     return string.format ("%d", number)
   end
 end
-function TitanElementalOverflow.Util_WrapText(text, lineLength)
+function TitanElementalOverflow.Util_WrapSingleLineOfText(text, lineLength)
   local wrappedText = ""
   local currentLine = ""
   for word in string.gmatch(text, "[^%s]+") do
@@ -55,7 +55,21 @@ function TitanElementalOverflow.Util_WrapText(text, lineLength)
       end
   end
   wrappedText = wrappedText .. currentLine
-  return wrappedText
+
+  -- Return trimmed wrapped text
+  return wrappedText:match("^%s*(.-)%s*$")
+end
+function TitanElementalOverflow.Util_WrapText(text, lineLength)
+  -- Variable to be returned
+  local wrappedText = ""
+
+  -- Wrap the text for each individual paragraph
+  for paragraph in text:gmatch("[^\n]+") do
+    wrappedText = wrappedText .. "\n" .. TitanElementalOverflow.Util_WrapSingleLineOfText(paragraph, lineLength)
+  end
+
+  -- Return trimmed wrapped text
+  return wrappedText:match("^%s*(.-)%s*$")
 end
 
 -- Load metadata
@@ -175,7 +189,7 @@ function TitanPanelElementalOverflowButton_GetTooltipText()
       currencyDescription .. "\r" ..
       " \r" ..
       L["BKFD_TITAN_TOOLTIP_COUNT_LABEL_TOTAL"]..TitanUtils_GetHighlightText(seasonCurrentValue) .. "\r" ..
-      totalLabel .. TitanUtils_GetHighlightText(totalValue)
+      L["BKFD_TITAN_TOOLTIP_COUNT_LABEL_TOTAL_SEASONAL_MAXIMUM"] .. TitanUtils_GetHighlightText(totalValue)
   else
     return
       currencyDescription .. "\r" ..
