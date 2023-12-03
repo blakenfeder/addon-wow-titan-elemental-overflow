@@ -1,8 +1,8 @@
-## Interface: 100005
+## Interface: 100200
 
-## Title: Titan Panel [|cffeda55fElemental Overflow|r] |cff00aa001.2.2.100005|r
+## Title: Titan Panel [|cffeda55fElemental Overflow|r] |cff00aa001.2.2.100200|r
 ## Author: Blakenfeder
-## Version: 1.2.2.100005
+## Version: 1.2.2.100200
 
 ## Notes: Adds Elemental Overflow tracking to Titan Panel
 
